@@ -1,0 +1,111 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <div class="card register-card">
+            <div class="row no-gutters">
+                <div class="col-md-2">
+                    <!-- <img src="assets/images/register.jpg" alt="register" class="register-card-img"> -->
+                </div>
+                <div class="col-8">
+                    <form class="login-form mt-4" [formGroup]="registerForm" (ngSubmit)="onSubmit(addRecord)">
+                        <h3>Sign-up</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group position-relative">
+                                    <label>Name </label>
+                                    <input type="text" class="form-control " formControlName="fname" required>
+
+                                </div>
+                            </div><br>
+                            <div class="col-md-6">
+                                <div class="form-group position-relative">
+                                    <label>Email </label>
+                                    <input type="text" class="form-control " formControlName="email" required>
+                                </div>
+                            </div><br>
+                            <div class="col-md-6">
+                                <div class="form-group position-relative">
+                                    <label>Mobile No </label>
+                                    <input type="text" class="form-control " formControlName="Mobile" required>
+                                </div>
+                            </div><br>
+                            <div class="col-md-12">
+                                <div class="form-group position-relative">
+                                    <label>Password </label>
+                                    <input type="password" class="form-control " formControlName="password"
+                                        required>
+                                </div>
+                            </div><br>
+                            <div class="col-md-12">
+                                <div class="form-group position-relative">
+                                    <label>confirm-Password </label>
+                                    <input type="password" class="form-control " formControlName="confirmpassword"
+                                        required>
+                                </div>
+                            </div><br>
+                            <div class="col-md-8">
+                                <div class="form-group position-relative">
+                                    <label>Registered by </label>
+                                    <select class="form-control pl-5" formControlName="register_by" required>
+                                        <option value="" selected disabled>Please select</option>
+                                        <option *ngFor="let reg of Regby" [value]="reg.id">
+                                            {{reg.value}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div><br>
+                            <div class="col-md-12">
+                                <button class="btn btn-primary auth-form-btn">Register</button>
+                            </div>
+
+                            <div class="mx-auto">
+                                <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small>
+                                    <a routerLink="/login" class="text-dark font-weight-bold">Sign in</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <ng-template #addRecord let-modal>
+                    <div class="modal-header editRowModal">
+                        <h4 class="modal-title" id="modal-basic-title">
+                            <div class="table-modal-header">
+                                <div class="modal-about">
+                                    <div class="font-weight-bold p-t-10 font-17">
+                                        Waiting For Otp</div>
+                                </div>
+                            </div>
+                        </h4>
+                        <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                            <span aria-hidden="true"><i class="material-icons">close</i></span>
+                        </button> -->
+                    </div>
+                     <div class="modal-body">
+                          <form class="register-form" [formGroup]="otpform" (ngSubmit)="onAddRowSave(otpform)">
+                            <div class="row">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+                                <label>Verification Code<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="otp" formControlName="otp" required>
+                                 <!-- <small class="form-text text-danger"
+                                  *ngIf="!otpform.get('phone').valid && otpform.get('otp').touched"> Otp is
+                                  required</small>  -->
+                              </div>                      
+                            </div>
+                        
+                            <!-- <div *ngIf="error1" class="alert alert-danger mb-3 ml-3">{{error1}}</div> -->
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-primary">Verify</button>
+                             
+                              <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+                            </div>
+                          </form>
+                          <button  class="btn btn-success"  (click)="resend()">Resend</button>
+                        </div> 
+                </ng-template>
+                <div class="col-md-2">
+                    <!-- <img src="assets/images/register.jpg" alt="register" class="register-card-img"> -->
+                </div>
+            </div>     
+        </div>
+    </div>
+</main>

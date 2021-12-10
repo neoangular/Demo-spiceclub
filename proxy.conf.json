@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://neophroncrm.com/spiceclubnew/api/v2",
+      "secure": false,
+      "logLevel": "debug"
+
+    
+    }
+  }

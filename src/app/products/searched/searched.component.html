@@ -1,0 +1,121 @@
+<div>
+    <label for="search-input"><i class="material-icons search-icon">search</i></label>
+   
+    <input placeholder="Search" type="text" class="browser-default search-field"
+      (click)='filterDatatable($event)' aria-label="Search box">
+  </div>
+
+            <div class="col-md-12">
+                <select class="formrol pl-5" (change)="oncatChange($event.target)">
+                    <option *ngFor="let tab of Sort" [value]="tab.id">
+                        {{tab.value}}
+                    </option>
+                </select>
+              </div>
+
+     <button (click)="opensort(sortRecord)">sort by</button>
+<!-- <input type="text" [(ngModel)]="mim" >
+<input type="text" [(ngModel)]="max"> -->
+
+ <ng-template #sortRecord let-modal>
+    <div class="modal-header editRowModal">
+        <h4 class="modal-title" id="modal-basic-title">
+            <div class="table-modal-header">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-10 font-17">
+                        sort ur require</div>
+                </div>
+            </div>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true"><i class="material-icons">close</i></span>  
+        </button>
+    </div>
+     <div class="modal-body">
+          <form class="register-form" [formGroup]="registerForm"  (ngSubmit)="apply(registerForm)" >
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+                <label>min<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="" formControlName="min" >
+                <label>max<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="" formControlName="max" >   
+              </div>    
+              
+         
+              <div class="col-md-12">
+                <label>category</label>
+                <select class="formrol pl-5" formControlName="category" >
+                    <option *ngFor="let tab of Allcat" [value]="tab.id">
+                        {{tab.name}}
+                    </option>
+                </select>
+              </div>
+            </div>
+           
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Apply</button>
+             
+              
+            </div>
+          </form>
+       
+        </div>
+</ng-template> 
+
+<div class="row">
+
+    <div class="col-md-4 col-xs-12" *ngFor="let img of sortprod">
+      <div class="col-lg-4" style="-ms-flex: 100%; flex: 52%;  max-width: 100%;  padding: 0 4px;"
+        >
+        <!-- (click)="viewbrandproductrow(img)" -->
+        <div class="img" style="width:50%;  height:100px;" >
+  
+          <img src="https://neophroncrm.com/spiceclubnew/public/{{img.thumbnail_image}}" alt="Img" style="width:100%; margin-top: 8px;  vertical-align: middle; padding: 0 4px; 
+            height:100%;
+            object-fit:cover; ">
+        </div>
+        <br>
+  
+        <div class="body">
+          <span style="text-decoration-line: line-through;" *ngIf="img.has_discount==true">{{img.stroked_price}}</span>
+          <h6 class="title" style="color: red;">{{img.main_price}}</h6>
+          <p class="title">{{img.name}}</p>
+          <!-- <button (click)="addtowishlist(img.id)"> Add to Wishlist</button> -->
+          
+  
+        </div>
+      </div>
+    </div>
+  
+  </div>
+
+<!-- <div class="row"  style="margin-left: 10px;">
+
+    <div class="col-xs-12">
+      <div class="col-lg-8" style="-ms-flex: 100%; flex: 52%;  max-width: 100%;  padding: 0 4px;">
+  
+        <div class="img" style="width:50%;  height:100%;">
+  
+          <img src="https://neophroncrm.com/spiceclubnew/public/{{Peoduct.thumbnail_image}}" alt="Img" style="width:100%; margin-top: 8px;  vertical-align: middle; padding: 0 4px; 
+            height:100%;
+            object-fit:cover; ">
+        </div>
+        <br>
+  
+        <div class="body">
+          <h3 class="title" style="color: red;">{{Peoduct.main_price}}</h3> &nbsp;
+          <h5 class="title">{{Peoduct.name}}</h5>
+          <span style="font-size: 14px !important;">Qty:</span>
+          <select class="sel" (change)="firstDropDownChanged($event)">
+            <option *ngFor='let v of _values1'>{{ v }}</option>
+          </select>
+          <p>(availabe={{Peoduct.current_stock}})</p> 
+           <button (click)="addtocart(Peoduct.id)"> Add to cart</button>
+          <p>{{Peoduct.shop_name}}</p> 
+          <p>{{Peoduct.description}}</p>
+          
+  
+        </div>
+      </div>
+    </div>
+  </div> -->

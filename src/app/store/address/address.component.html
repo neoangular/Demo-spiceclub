@@ -1,0 +1,301 @@
+
+<button (click)="addaddresss(addRecord)">add address</button>
+
+<div class="card-body" *ngFor="let Connectdtls of Address">
+    <div class="card-header">
+      <h4>Details</h4><button (click)="editRow(Connectdtls ,editRecord )" >edit</button>
+      <button (click)="deleteRow(Connectdtls)" >Delete</button>
+    </div>
+    <div class="py-4" style="margin-left: 20px; margin-right: 20px;">
+      <p class="clearfix">
+        <span class="float-start">
+          Address : 
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.address}}
+        </span>
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Country:
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.country_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         State :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.state_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         City :
+        </span>
+
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.city_name}}
+        </span>
+
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Postal_code :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.postal_code}}
+        </span>
+
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+          Mobile :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+         {{Connectdtls.phone}}
+        </span>
+
+      </p>
+    </div>
+  </div>
+
+
+
+ <ng-template #addRecord let-modal>
+    <div class="modal-header editRowModal">
+      <h4 class="modal-title" id="modal-basic-title">
+        <div class="table-modal-header">
+         
+          <div class="modal-about">
+            <div class="font-weight-bold p-t-10 font-17">
+              Add address</div>
+          </div>
+        </div>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true"><i class="material-icons">close</i></span>
+      </button>
+    </div> 
+
+    <div class="modal-body">
+      <form class="register-form" [formGroup]="register" (ngSubmit)="onAddRowSave(register)"
+        style="margin-top: 50px; border-color: rgb(20, 20, 20); border: black; ">
+        <div class="row" style="margin-left: 30px;margin-right: 40px;  border: black; ">
+
+
+            <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Address</label>
+                  <textarea name="" class="form-control pl-2" formControlName="address" cols="30"
+                    rows="3"></textarea>
+                </div>
+              </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Country</label>
+              <select  class="form-control pl-5" formControlName="country" >
+                <option *ngFor="let tab of Country" [value]="tab.id">
+                  {{tab.name}}
+                </option>
+              </select>
+
+              <!-- <select class="form-control pl-5"    (change)="ontableChange($event.target.value)">
+                <option  [value]="Mtable_id" selected >JCOM V NGB TEST TABLE 1.O</option>
+                <option *ngFor="let tab of Tables" [value]="tab.table">
+                  {{tab.table_name}}
+                </option>
+              </select>            (change)="ontableChange($event)"-->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>state<span class="text-danger">*</span></label>
+              <select class="form-control pl-5"  formControlName="state" >
+                <option *ngFor="let tab of State" [value]="tab.id">
+                  {{tab.name}}
+                </option>
+              </select>
+              <!-- <ng-select formControlName="state"  placeholder="please select"  required>
+                <ng-option *ngFor="let car of State" [value]="car.id">{{car.name}}
+                </ng-option>
+              </ng-select> -->
+
+              <!-- <select class="form-control pl-5" formControlName="to_member_id" required>                 
+                <option value="" selected disabled>Please select</option>
+                <option *ngFor="let mem of Members" [value]="mem.id">
+                  {{mem.name}}
+                </option>
+              </select> -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>city<span class="text-danger">*</span></label>
+              <!-- <ng-select formControlName="city" [items]="Members" bindLabel="name" bindValue="id"
+                required placeholder="please select">
+              </ng-select>  -->
+
+              <select class="form-control pl-5" formControlName="city" required>                 
+              
+                <option *ngFor="let mem of City" [value]="mem.id">
+                  {{mem.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+       
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Postal code</label>
+              <input type="text" class="form-control pl-5"  formControlName="postal_code"   >
+              <!-- (change)="onPinChange($event.target.value)" -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Mobile No <span class="text-danger">*</span></label>
+              <input type="text" class="form-control pl-5" formControlName="phone" 
+                >
+                
+            </div>
+          </div>
+
+          <div class="col-md-12" style="text-align: center;"><br>
+            <button type="submit" class="btn btn-primary" >Save</button>
+            <br><br><br>
+          </div>
+
+          <!-- row end -->
+        </div>   
+      </form>
+
+    </div>
+   </ng-template> 
+
+   <!-- edit -->
+   <ng-template #editRecord let-modal>
+    <div class="modal-header editRowModal">
+      <h4 class="modal-title" id="modal-basic-title">
+        <div class="table-modal-header">
+         
+          <div class="modal-about">
+            <div class="font-weight-bold p-t-10 font-17">
+            edit address</div>
+          </div>
+        </div>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true"><i class="material-icons">close</i></span>
+      </button>
+    </div> 
+
+    <div class="modal-body">
+        <form [formGroup]="editForm"  (ngSubmit)="onEditSave(editForm)"
+        style="margin-top: 50px; border-color: rgb(20, 20, 20); border: black; ">
+        <div class="row" style="margin-left: 30px;margin-right: 40px;  border: black; ">
+
+
+            <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Address</label>
+                  <textarea name="" class="form-control pl-2" formControlName="address" cols="30"
+                    rows="3"></textarea>
+                </div>
+              </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Country</label>
+              <select  class="form-control pl-5" formControlName="country" >
+                <option *ngFor="let tab of Country" [value]="tab.id">
+                  {{tab.name}}
+                </option>
+              </select>
+
+              <!-- <select class="form-control pl-5"    (change)="ontableChange($event.target.value)">
+                <option  [value]="Mtable_id" selected >JCOM V NGB TEST TABLE 1.O</option>
+                <option *ngFor="let tab of Tables" [value]="tab.table">
+                  {{tab.table_name}}
+                </option>
+              </select>            (change)="ontableChange($event)"-->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>state<span class="text-danger">*</span></label>
+              <select class="form-control pl-5"  formControlName="state" >
+                <option *ngFor="let tab of State" [value]="tab.id">
+                  {{tab.name}}
+                </option>
+              </select>
+              <!-- <ng-select formControlName="state"  placeholder="please select"  required>
+                <ng-option *ngFor="let car of State" [value]="car.id">{{car.name}}
+                </ng-option>
+              </ng-select> -->
+
+              <!-- <select class="form-control pl-5" formControlName="to_member_id" required>                 
+                <option value="" selected disabled>Please select</option>
+                <option *ngFor="let mem of Members" [value]="mem.id">
+                  {{mem.name}}
+                </option>
+              </select> -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>city<span class="text-danger">*</span></label>
+              <!-- <ng-select formControlName="city" [items]="Members" bindLabel="name" bindValue="id"
+                required placeholder="please select">
+              </ng-select>  -->
+
+              <select class="form-control pl-5" formControlName="city" required>                 
+              
+                <option *ngFor="let mem of City" [value]="mem.id">
+                  {{mem.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+       
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Postal code</label>
+              <input type="text" class="form-control pl-5"  formControlName="postal_code"   >
+              <!-- (change)="onPinChange($event.target.value)" -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group position-relative">
+              <label>Mobile No <span class="text-danger">*</span></label>
+              <input type="text" class="form-control pl-5" formControlName="phone" 
+                >
+                
+            </div>
+          </div>
+
+          <div class="col-md-12" style="text-align: center;"><br>
+            <button type="submit" class="btn btn-primary" >Save</button>
+            <br><br><br>
+          </div>
+
+          <!-- row end -->
+        </div>   
+      </form>
+
+    </div>
+   </ng-template> 

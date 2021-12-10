@@ -1,0 +1,99 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+      <div class="row">
+        <div class="auth-card">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h4>Forgot Password</h4>
+              </div>
+              <div class="card-body">
+                <p class="text-muted">We will send a code to reset your password</p>
+                <form class="validate-form" [formGroup]="forgotForm"   (ngSubmit)="onSubmit(addRecord)">      
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group position-relative">
+                          <label>Email or phone </label>
+                          <input type="text" class="form-control " formControlName="Mobile">        
+                        </div>
+                         </div>
+                         <br>
+                         <div class="col-lg-12">
+                            <div class="form-group position-relative">
+                                <label>Send code by <span class="text-danger">*</span></label>
+                                 <!-- <i-feather name="users" class="login-icons"></i-feather>  -->
+                                <select class="form-control " formControlName="Type"
+                                  placeholder="Select ">
+                                  <option value="" selected disabled>Please select</option>
+                                  <option *ngFor="let meet of meetings" [value]="meet.id">
+                                    {{meet.value}}
+                                  </option>
+                                </select>
+                              </div>
+                      </div>  
+                     <br>
+                      <div class="col-lg-12 mb-0">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" >
+                            Forgot Password
+                          </button>
+                          <!-- <button class="btn btn-dark btn-lg btn-block" routerLinkActive="login" >
+                            back
+                          </button> -->
+                      </div>
+              
+                      <br>
+                      </div>
+                  </form>
+               
+              </div>
+              <ng-template #addRecord let-modal>
+                <div class="modal-header editRowModal">
+                    <h4 class="modal-title" id="modal-basic-title">
+                        <div class="table-modal-header">
+                            <div class="modal-about">
+                                <div class="font-weight-bold p-t-10 font-17">
+                                   Enter code and new password</div>
+                            </div>
+                        </div>
+                    </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                        <span aria-hidden="true"><i class="material-icons">close</i></span>
+                    </button>
+                </div>
+                <!-- (ngSubmit)="onAddRowSave(passwordform)" [formGroup]="passwordform" -->
+                 <div class="modal-body">
+                      <form class="register-form" [formGroup]="passwordForm" (ngSubmit)="onAddRowSave()" >
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label>Verification Code<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control"  formControlName="otp" required>
+                             <!-- <small class="form-text text-danger"
+                              *ngIf="!otpform.get('phone').valid && otpform.get('otp').touched"> Otp is
+                              required</small>  -->
+                          </div>    
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+                            <label>New password<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control"  formControlName="newpassword" required>
+                             <!-- <small class="form-text text-danger"
+                              *ngIf="!otpform.get('phone').valid && otpform.get('otp').touched"> Otp is
+                              required</small>  -->
+                          </div>                   
+                        </div>
+                    
+                        <!-- <div *ngIf="error1" class="alert alert-danger mb-3 ml-3">{{error1}}</div> -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Verify</button>
+                        
+                          <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+                        </div>
+                      </form>
+                      <button  class="btn btn-success"  (click)="resend()">Resend</button>
+                    </div> 
+            </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  

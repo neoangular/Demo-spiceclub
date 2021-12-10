@@ -1,0 +1,144 @@
+<div class="card author-box">
+    <div class="card-body">
+      <div class="author-box-center">
+        <img alt="image" src="https://neophroncrm.com/spiceclubnew/public/{{profilee?.avatar_original}}"  class="rounded-circle author-box-picture" style="size: 50%;">
+        <div class="clearfix"></div>
+        <div class="author-box-name">
+          <a href="#" onClick="return false;">{{profilee?.name}}</a>
+        </div>
+        <div class="author-box-job">{{profilee?.email}}</div>
+
+        <p>type:{{profilee?.type}}</p>
+      </div>
+      <button  class="btn btn-success" [routerLink]="['/wallet']">balance</button>
+      <div class="text-center">
+        <div class="author-box-description">
+          
+            <p>Cart items:{{countes?.cart_item_count}} ,  Order count:{{countes?.order_count}}  , Wishlist count:{{countes?.wishlist_item_count}}</p>
+   
+        </div>
+        <!-- <div class="mb-2 mt-3">
+          <div class="text-small fw-bold">Follow Hasan On</div>
+        </div>
+        <a href="#" onClick="return false;" class="btn btn-social-icon msr-1 btn-facebook">
+          <i class="fab fa-facebook-f"></i> 
+        </a>&nbsp;
+        <a href="#" onClick="return false;" class="btn btn-social-icon msr-1 btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>&nbsp;
+        <a href="#" onClick="return false;" class="btn btn-social-icon msr-1 btn-github">
+          <i class="fab fa-github"></i>
+        </a>&nbsp;
+        <a href="#" onClick="return false;" class="btn btn-social-icon msr-1 btn-instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <div class="w-100 d-sm-none"></div> -->
+      </div>
+    </div>
+    <button class="btn btn-light" (click)="editprofil(changeRecord)" >Edit profile</button>
+    <button  class="btn btn-primary" [routerLink]="['/orders']" >orders</button> 
+    <button class="btn btn-warning" [routerLink]="['/address']" >address</button>
+
+  </div>
+  <ng-template #changeRecord let-modal>
+    <div class="modal-header editRowModal">
+        <h4 class="modal-title" id="modal-basic-title">
+            <div class="table-modal-header">
+                <img src="assets/images/JCOM logo 4.jpg" alt="avatar">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-10 font-17">
+                     Edit profile </div>
+                </div>
+            </div>
+        </h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss()">
+            <span aria-hidden="true"><i class="material-icons">close</i></span>
+        </button>
+    </div>
+    <br>
+    <button class="btn btn-light" (click)="editprofileimg(profileimageRecord)" >Edit profile image</button>
+
+    <div class="modal-body">
+
+        <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
+          <p class="text-muted">Enter Your New Password</p>
+          <form class="edit-form" [formGroup]="editForm" (ngSubmit)="onEditSave(editForm)">
+  
+            <div class="form-group">
+                <label>name</label>
+                <input type="text" formControlName="name" class="form-control" required> 
+              </div>
+
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" formControlName="password" class="form-control" required>
+            </div>
+  
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" formControlName="confirm_password" required>
+
+            </div>
+            <!-- <div *ngIf="error2" class="alert alert-danger mb-3 msl-3">{{error2}}</div> -->
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block" type="submit"  >
+                save
+              </button>
+            </div>
+          </form>
+        </div>
+        <br>
+    </div>
+  </ng-template>
+
+  <ng-template #profileimageRecord let-modal>
+    <div class="modal-header editRowModal">
+        <h4 class="modal-title" id="modal-basic-title">
+            <div class="table-modal-header">
+                <img src="assets/images/JCOM logo 4.jpg" alt="avatar">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-10 font-17">
+                     Edit profile </div>
+                </div>
+            </div>
+        </h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss()">
+            <span aria-hidden="true"><i class="material-icons">close</i></span>
+        </button>
+    </div>
+    <br>
+    <div class="modal-body">
+        <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
+          <p class="text-muted">choose file</p>
+          <form>
+            <div class="form-group">
+                <fieldset class="form-group">   
+                    <!-- {{imageError}} -->
+                    <div class="custom-file fileInputProfileWrap">
+                        <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+                        <div class="img-space">
+    
+                            <!-- <ng-container *ngIf="isImageSaved; else elseTemplate">
+                                <img [src]="cardImageBase64" />
+                            </ng-container> -->
+                            <ng-template #elseTemplate>
+    
+                                <!-- <img src="./../../assets/placeholder.png" class="img-responsive"> -->
+                            </ng-template>
+                            <button class="btn btn-primary btn-lg btn-block" (click)="changeproimg()"  >
+                            save changes
+                            </button>
+                           
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- <a class="btn btn-danger" (click)="removeImage()" *ngIf="isImageSaved">Remove</a> -->
+        </form>
+        
+        </div>
+        <br>
+    </div>
+  </ng-template>

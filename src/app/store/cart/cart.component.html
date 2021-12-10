@@ -1,0 +1,231 @@
+
+<div *ngIf="caart">
+<div class="fgf" *ngFor="let a of Cart" >
+    <h4>{{a.name}}</h4>
+
+<br><br>
+
+<div class="row" >
+    <div class="col-md-8 col-xs-12" *ngFor="let b of a.cart_items">
+      <div class="col-lg-12" style="-ms-flex: 100%; flex: 52%;  max-width: 100%;  padding: 0 4px;"
+        >
+  
+        <div class="col-lg-4" style="width:50%;  height:100px;" >
+  
+          <img src="https://neophroncrm.com/spiceclubnew/public/{{b.product_thumbnail_image}}" alt="Img" style="width:100%; margin-top: 8px;  vertical-align: middle; padding: 0 4px; 
+            height:100%;
+            object-fit:cover; ">
+        </div>
+        <br>
+  
+        <div class="col-lg-4">
+          <!-- <span style="text-decoration-line: line-through;" *ngIf="img.has_discount==true">{{img.stroked_price}}</span> -->
+          <h6 class="title" style="color: red;">{{b.price}}</h6>  
+          <p class="title">{{b.product_name}}</p> 
+          <select class="sel" (change)="firstDropDownChanged($event,b.id)">
+            <option *ngFor='let v of _values1'>{{ v }}</option>
+          </select>
+          <!-- <input  [(ngModel)] ="quantityy" value={{b.quantity}} > -->
+         <p class="title">{{b.quantity}} &nbsp;&nbsp; <button  (click)="deleteRecord(b.id)">remove </button></p>  
+  
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+<div class="row">
+
+    <div class="col">
+    <h4>Total amount</h4>
+    </div>
+    <div class="col">
+        <h3 style="color: red;"> {{Grandtot}}</h3>
+        </div>
+</div>
+<div> <button (click)="proshipping()" > proceed to shipping 
+</button></div>
+</div>
+
+
+
+<div class="row" *ngIf="cosst">
+  <div class="col-12 col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>complete to place order</h4>
+      </div>
+      <div class="card-body">
+        <aw-wizard [navBarLayout]="'large-empty-symbols'">
+          <aw-wizard-step stepTitle="select shipping address">
+            <ng-template awWizardStepSymbol>1</ng-template>
+          
+<div  >
+  <h6>shipping cost  = <span style="color: red;">{{cost}}</span></h6>
+
+<div class="card-body" *ngFor="let Connectdtls of Address">
+    <div class="card-header" (click)="shippingcost(Connectdtls)">
+      
+      <!-- <button (click)="deleteRow(Connectdtls)" >Delete</button> -->
+    </div>
+    <div class="py-4" style="margin-left: 20px; margin-right: 20px;">
+      <p class="clearfix">
+        <span class="float-start">
+          Address : 
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.address}}
+        </span>
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Country:
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.country_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         State :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.state_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         City :
+        </span>
+
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.city_name}}
+        </span>
+
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Postal_code :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.postal_code}}
+        </span>
+
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+          Mobile :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+         {{Connectdtls.phone}}
+        </span>
+
+      </p>
+    </div>
+  </div>
+</div>
+            <ul class="list-inline wizard mb-0">
+              <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>continue to payment info</button>
+              </li>
+            </ul>
+          </aw-wizard-step>
+
+          <aw-wizard-step stepTitle="payment Type">
+            <ng-template awWizardStepSymbol>2</ng-template>
+
+           
+<div class="row" >
+  <div class="col-md-4 col-xs-12" *ngFor="let b of Paymenttype">
+    <div class="col-lg-12" style="-ms-flex: 100%; flex: 52%;  max-width: 100%;  padding: 0 4px; border-style: solid;
+    border-color: rgb(6, 8, 102);"
+      (click)="selectpaytype(b)" >
+      <div class="col-lg-4" style="width:50%;  height:100px;" >
+        <h6 class="title" style="color: rgb(158, 42, 13);">{{b.payment_type}}</h6>  <p>{{b.payment_type_key}}</p>
+      </div>
+      <br>
+      <div class="col-lg-4">
+        <!-- <span style="text-decoration-line: line-through;" *ngIf="img.has_discount==true">{{img.stroked_price}}</span> -->
+        
+      </div>
+    </div>
+  </div>   
+</div>
+<!-- apply coupan -->
+<form class="register" [formGroup]="comment" (ngSubmit)="applycoupan(comment)">
+  <div class="col-md-6">
+      <div class="form-group position-relative">
+        <label>couponcode <span class="text-danger">*</span></label>
+        
+        <input type="text" class="form-control pl-5" formControlName="coupan" placeholder="code" required>
+
+      </div>
+    </div>
+<div class="col-md-12" style="text-align: center;"><br>
+  <button type="submit" class="btn btn-primary" >Apply</button>
+  <br><br><br>
+</div>
+</form>
+
+            <ul class="list-inline wizard mb-0">
+              <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+              </li>
+              <li class="next list-inline-item float-end"><button class="btn btn-primary" (click)="placeorder()">Place order</button>
+              </li>
+            </ul>
+            <!-- <button  (click)="initPay()">Pay</button> -->
+
+            <h3>Click Here! to go CCAvenue</h3>
+            <button mat-button (click)="checkout()">Checkout Payment Gateway</button>
+        
+          <form #form ngNoForm
+          id="nonseamless" 
+          method="post" 
+          name="redirect" 
+          action="https://uat.billdesk.com/pgidsk/PGIMerchantPayment">
+            <input type="hidden" id="encRequest" name="encRequest" value="{{encRequestRes}}">
+            <input type="hidden" name="access_code" id="access_code" value="{{accessCode}}">
+        </form>
+
+            <!-- <div class="container">
+              <div class="row">
+                <h1>Proceed to Pay</h1>
+                <button (click)="pay()"></button>
+              </div>
+            </div>
+            
+            
+            <form #form ngNoForm 
+                  id="nonseamless" 
+                  method="post"
+                  name="redirect" 
+                  action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+              <input type="hidden" id="encRequest" name="encRequest" [ngModel]="encRequest">
+              <input type="hidden" name="access_code" id="access_code" [ngModel]="accessCode">
+            </form> -->
+          </aw-wizard-step>
+
+          <!-- <aw-wizard-step stepTitle="payment type">
+            <ng-template awWizardStepSymbol>3</ng-template>
+            <div class="p-3">
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="cb1">
+                  <label class="form-check-label" for="cb1">
+                    I agree with the Terms and
+                    Conditions.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <ul class="list-inline wizard mb-0">
+              <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+              </li>
+            </ul>
+          </aw-wizard-step> -->
+        </aw-wizard>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<h6>shipping cost  = <span style="color: red;">{{cost}}</span></h6>
+
+<div class="card-body" *ngFor="let Connectdtls of Address">
+    <div class="card-header" (click)="shippingcost(Connectdtls)">
+      
+      <!-- <button (click)="deleteRow(Connectdtls)" >Delete</button> -->
+    </div>
+    <div class="py-4" style="margin-left: 20px; margin-right: 20px;">
+      <p class="clearfix">
+        <span class="float-start">
+          Address : 
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.address}}
+        </span>
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Country:
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.country_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         State :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.state_name}}
+        </span>
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+         City :
+        </span>
+
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.city_name}}
+        </span>
+
+      </p>
+      <p class="clearfix">
+        <span class="float-start">
+          Postal_code :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+          {{Connectdtls.postal_code}}
+        </span>
+
+      </p>
+
+      <p class="clearfix">
+        <span class="float-start">
+          Mobile :
+        </span>
+        <span class="float-right text-muted" style="width: 60%;">
+         {{Connectdtls.phone}}
+        </span>
+
+      </p>
+    </div>
+  </div>
