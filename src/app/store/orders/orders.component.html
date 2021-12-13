@@ -84,7 +84,7 @@
       <div class="py-4" style="margin-left: 20px; margin-right: 20px;" >
         <p class="clearfix">
           <span class="float-start">
-            delivery_status_string : 
+            delivery_status_stringg : 
           </span>
           <span class="float-right text-muted" style="width: 60%;">
             {{Connectdtls.delivery_status_string}}
@@ -107,6 +107,16 @@
             {{Connectdtls.date}}
           </span>
         </p>
+        <p class="clearfix">
+          <span class="float-start">
+              grand_total :
+          </span>
+          <span class="float-right text-muted" style="width: 60%;">
+            {{Connectdtls.grand_total}}
+          </span>
+        </p>
+
+        <button (click)=quickorder(Connectdtls.id)>Quick order</button>
 
         <div *ngFor="let i of Items" style="border-style: solid;
         border-color: rgb(4, 17, 4);" >

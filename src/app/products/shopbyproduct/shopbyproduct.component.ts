@@ -42,6 +42,8 @@ export class ShopbyproductComponent implements OnInit {
   product_iddd: any;
   product_iidd: any;
   message!: FormGroup;
+  pagenation: any;
+  pagess: any;
   constructor(private router: Router,private fb: FormBuilder,private request: RequestService,private modalService: NgbModal,) { 
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser')||'{}')
@@ -56,7 +58,7 @@ export class ShopbyproductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.viewdata();
+    this.viewdata(1);
    this.viewbrand();
    this.viewcat();
 
@@ -77,13 +79,25 @@ export class ShopbyproductComponent implements OnInit {
     
   }
    
-viewdata(){
-  this.request.getallproducts().subscribe((response: any) => {
-    this.Product=response.data;   
+viewdata(page:any){
+  this.request.getallproducts(page).subscribe((response: any) => {
+    this.Product=response.data;
+    this.pagenation=response.meta   
+    this.pagess=this.pagenation.links
     console.log("response",response);
     console.log("allproduct",this.Product);
   });
 }
+getpage(url:any){
+  this.request.getpage(url).subscribe((response:any)=>{
+    this.Product=response.data;
+    this.pagenation=response.meta   
+    this.pagess=this.pagenation.links
+    console.log("response",response);
+    console.log("allproduct",this.Product);
+  })
+}
+
 viewbrand(){
   this.request.getallbrands().subscribe((response: any) => {
     this.Allbrands=response.data;   
@@ -99,6 +113,8 @@ ontableChange(tbl_id:any) {
     this.request.getbrandprod(this.brand_id).subscribe((response: any) => {
       console.log("prod",response);
            this.Product=response.data;
+           this.pagenation=response.meta   
+           this.pagess=this.pagenation.links
            console.log("res",this.Product); 
     },
      (error: any) => {
@@ -165,6 +181,8 @@ ontableChange(tbl_id:any) {
     this.request.getcatprodbyid(this.cat_id).subscribe((response: any) => {
       console.log("catprod",response);
            this.Product=response.data;
+           this.pagenation=response.meta   
+           this.pagess=this.pagenation.links
            console.log("res",this.Product); 
     },
      (error: any) => {

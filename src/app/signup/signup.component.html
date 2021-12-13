@@ -53,6 +53,17 @@
                                     </select>
                                 </div>
                             </div><br>
+                            <div class="col-md-8">
+                                <div class="form-group position-relative">
+                                    <label>Buyer type  </label>
+                                    <select class="form-control pl-5" formControlName="buyer_type" required>
+                                        <option value="" selected disabled>Please select</option>
+                                        <option *ngFor="let reg of buyer" [value]="reg.id">
+                                            {{reg.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div><br>
                             <div class="col-md-12">
                                 <button class="btn btn-primary auth-form-btn">Register</button>
                             </div>

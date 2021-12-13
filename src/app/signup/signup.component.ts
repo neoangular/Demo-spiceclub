@@ -15,10 +15,16 @@ export class SignupComponent implements OnInit {
     { id: 'email', value: 'email' },
     { id: 'phone', value: 'phone' },  
   ];
+  // buyer= [  
+  //   { id: '1', value: 'customer' },
+  //   { id: '2', value: 'seller' },
+  //   { id: '3', value: 'b2b' },  
+  // ];
   registerForm: FormGroup;
   submitted: boolean | undefined;
   otpform!: FormGroup;
   userid: any;
+  buyer: any;
   constructor( private router: Router,private fb: FormBuilder,private request: RequestService, 
     private formBuilder: FormBuilder, private authService: AuthService,private modalService: NgbModal,) {
     this.registerForm = this.formBuilder.group({
@@ -31,10 +37,12 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required], 
       confirmpassword: ['', Validators.required],
       register_by: ['', Validators.required],
+      buyer_type: ['', Validators.required],
     });
    }
 
   ngOnInit(): void {
+    this.getbyertype();
     this.otpform = this.fb.group({ 
       otp: ['', [Validators.required]], 
     });
@@ -45,6 +53,17 @@ export class SignupComponent implements OnInit {
   }
   get f() {
     return this.registerForm.controls;
+    
+  }
+  getbyertype(){
+    this.request.getbyertype().subscribe((res:any)=>
+    {
+      console.log("buertype",res)
+      this.buyer=res.data;
+    },
+    (error: any) => {
+      console.log(error);
+    })
     
   }
   onSubmit(content: any) {
@@ -61,7 +80,8 @@ export class SignupComponent implements OnInit {
              phone:""+this.registerForm.controls['Mobile'].value,
              password:""+this.registerForm.controls['password'].value,
              passowrd_confirmation:""+this.registerForm.controls['confirmpassword'].value,
-             register_by:""+this.registerForm.controls['register_by'].value,      
+             register_by:""+this.registerForm.controls['register_by'].value,  
+             buyer_type:""+this.registerForm.controls['buyer_type'].value,
            }
            console.log("reg",edata)
 

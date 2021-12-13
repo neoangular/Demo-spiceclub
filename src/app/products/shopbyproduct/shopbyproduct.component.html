@@ -31,13 +31,35 @@
                 <h6 class="title" style="color: red;">{{img.main_price}}</h6>
                 <p class="title">{{img.name}}</p>
                 <button (click)="addtowishlist(img.id)"> Add to Wishlist</button>
-
-
             </div>
         </div>
     </div>
 
+      
+    <!-- <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
+            <a (click)="setPage(1)" class="page-link">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item previous-item">
+            <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item">
+            <a (click)="setPage(page)" class="page-link">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item next-item">
+            <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item last-item">
+            <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+        </li>
+      </ul>` -->
+
 </div>
+<ul  class="pagination">
+    <li [ngClass]="{disabled:p.url === null}" class="page-item first-item" *ngFor="let p of pagess" (click)="getpage(p.url)">
+        <a  class="page-link">{{p.label}}</a>
+    </li>     
+  </ul>
 
 
 <div class="row" *ngIf="page2" style="margin-left: 10px;">

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { RequestService } from 'src/app/service/request.service';
 import { User } from '../../core/models/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -26,8 +27,9 @@ export class OrdersComponent implements OnInit {
   product_iddd: any;
   register!: FormGroup;
   _values2 = [" 1 ", "2", " 3 "," 4 "," 5 "];
+
   constructor(private request: RequestService,  private fb: FormBuilder,
-    private modalService: NgbModal,) {
+    private modalService: NgbModal,private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser')||'{}')     
     );
@@ -124,6 +126,22 @@ this.prdid=Connectdtls.id;
     
     });
   
+  }
+  quickorder(ord_id:any){
+    console.log("ordid",ord_id);
+    this.request.quickorder(ord_id).subscribe((res:any)=>{
+      console.log("quickorder res",res)
+      if(res.result==true){
+        this.router.navigateByUrl('cart');
+        this.modalService.dismissAll();
+      }
+      else{
+        console.log("err",res.status);
+      }
+    });
+   
+
+
   }
  
 }

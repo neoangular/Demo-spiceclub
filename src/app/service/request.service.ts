@@ -47,6 +47,10 @@ export class RequestService {
     this.currentUserSubject.next(null!);
     return this.http.get(this.url,{headers:headers})
   }
+  getbyertype(){
+    this.url= `${this.endPoint1}/buyertypes`;
+    return this.http.get(this.url);
+  }
 
   public getallbrands() {
     this.url = `${this.endPoint1}/brands`;
@@ -280,14 +284,18 @@ public getcatsubprod(link: string) {
   return this.http.get(link);
 }
 // shopbyproducts
-public getallproducts() { 
-  this.url = `${this.endPoint1}/products?page=` + 1;
+public getallproducts(page:any) { 
+  this.url = `${this.endPoint1}/products?page=` + page;
   return this.http.get(this.url,);
+}
+public getpage(link:any){
+  return this.http.get(link);
 }
 // productbybrand
 
 public getbrandprod(id: string) {
   this.url = `${this.endPoint1}/products/brand/` + id +'?page=1';
+  console.log("url",this.url)
   return this.http.get(this.url);
 }
 //prod detail
@@ -458,6 +466,14 @@ public getnewmessages(convid: any,lastid:any) {
   .set('content-type', 'application/json')
   .set('Authorization', 'Bearer'+' '+ this.accesstoken)
   this.url = `${this.endPoint1}/chat/get-new-messages/` + convid +`/` + lastid +`?Content-Type=` + "application/json" +`&Authorization=Bearer`+ this.accesstoken;
+  console.log("url",this.url)
+  return this.http.get(this.url,{headers:headers});
+}
+public quickorder(id: any,) {
+  const headers = new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Authorization', 'Bearer'+' '+ this.accesstoken)
+  this.url = `${this.endPoint1}/quickorder/` + id ;
   console.log("url",this.url)
   return this.http.get(this.url,{headers:headers});
 }
