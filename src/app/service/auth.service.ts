@@ -13,6 +13,9 @@ import { User } from '../core/models/user';
   providedIn: 'root'
 })
 export class AuthService {
+  encryptdata(request: string) {
+    throw new Error('Method not implemented.');
+  }
 
 //   get nativeWindow() : any {
 //     return _window();

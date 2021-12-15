@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { User } from '../core/models/user';
+import { catchError} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,13 @@ export class RequestService {
 
   // private endPoint1 = "https://admin.jcombiz.com/jcomweb/login.php"
   private endPoint1 = "https://neophroncrm.com/spiceclubnew/api/v2"
+
+  
   currentdetail: User;
   userid: any;
   accesstoken: any;
   tokentype: any;
+  extractData:any;
 
 
   constructor(private http: HttpClient) {
@@ -432,7 +437,7 @@ public changeimg(body:any) {
   this.url = `${this.endPoint1}/profile/update-image`;
   return this.http.post(this.url,body,{headers:headers});
 } 
-// convertation
+// conversation
 public addconv(body:any) {
   const headers = new HttpHeaders()
   .set('content-type', 'application/json')
@@ -477,5 +482,58 @@ public quickorder(id: any,) {
   console.log("url",this.url)
   return this.http.get(this.url,{headers:headers});
 }
+
+// billdesk
+// https://neophroncrm.com/spiceclubnew/api/v2/billdesk/pay-with-billdesk?payment_type=cart_payment&combined_order_id=74&amount=188.00&user_id=8
+
+public billdeskpay(combined_order_id:any,amount:any,user_id:any) {
+   this.url = `${this.endPoint1}/billdesk/pay-with-billdesk?payment_type=cart_payment&combined_order_id=` + combined_order_id +`&amount=` +amount+ `&user_id=`+ user_id;
+ console.log("urlll=",this.url);
+ window.open(this.url);
+ return  this.http.get(this.url)
+ .pipe(map((response: any) => response.json()));  
+ 
+ //  {responseType: 'text' as 'json'}
+
+//  .pipe(  
+//   map((res) => {
+//     var stringified = JSON.stringify(res);
+//     var parsedObj = JSON.parse(stringified);
+   
+//     console.log("cer:",parsedObj);
+//     return res;
+//   })
+//  )
+  
+}
+public billdeskpayment(): Observable<string>  {
+  this.url =`https://neophroncrm.com/spiceclubnew/api/v2/billdesk/pay-with-billdesk?payment_type=cart_payment&combined_order_id=74&amount=188.00&user_id=8`
+console.log("urlll=",this.url);
+// window.open(this.url);
+ return this.http.get<any>(this.url)
+//  .pipe( map((res) => {
+//        var stringified = JSON.stringify(res);
+//       // var parsedObj = JSON.parse(res);
+     
+//       console.log("cer:",stringified);
+//       return res;
+//     })
+//    )
+}
+
+
+// public billdeskpayment(): Observable<Car[]> {
+//   this.url =`https://neophroncrm.com/spiceclubnew/api/v2/billdesk/pay-with-billdesk?payment_type=cart_payment&combined_order_id=74&amount=188.00&user_id=8`
+// console.log("urlll=",this.url);
+//   return this.http.get(this.url).pipe(
+//     map((res: Response) => {
+//       let body = res.json();
+//       return body || { };
+//     })
+    
+// }
+
+ 
+
 
 }

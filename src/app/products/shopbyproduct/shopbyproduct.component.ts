@@ -44,6 +44,7 @@ export class ShopbyproductComponent implements OnInit {
   message!: FormGroup;
   pagenation: any;
   pagess: any;
+  stocck: any;
   constructor(private router: Router,private fb: FormBuilder,private request: RequestService,private modalService: NgbModal,) { 
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser')||'{}')
@@ -130,6 +131,7 @@ ontableChange(tbl_id:any) {
     console.log("proddetaill",response);
          this.Peoduct=response.data[0];
          this.choice=this.Peoduct.choice_options;
+         this.stocck=this.Peoduct.current_stock;
          console.log("res",this.Peoduct); 
          console.log("choise option",this.Peoduct.choice_options); 
   },
@@ -152,27 +154,32 @@ ontableChange(tbl_id:any) {
   this.quantityy=data.target.value;
     return this.quantityy= this.quantityy; 
 }
-  addtocart(_id:any){
-    let edata={
-      id : _id,
-      variant:this?.varient_value,
-      user_id: this.userid,
-      quantity: this.quantityy
-    }
-    console.log(edata);  
-    this.request.addtocart(edata).subscribe((res: any) => {
-      console.log(res);
-      if (res.message == 'Product added to cart successfully') {       
-      }
-      else  {
-        console.log("error",res);
-  
-      }
-    }, (error: any) => {
-      console.log("error",error);
-    
-    });
+addtocart(_id:any){
+  let edata={
+    id : _id,
+    variant:this?.varient_value.replace(/\s/g, ""),
+    user_id: this.userid,
+    quantity: this.quantityy  
   }
+  console.log(edata);  
+  this.request.addtocart(edata).subscribe((res: any) => {
+    console.log(res);
+    if (res.message == 'Product added to cart successfully') {       
+    }
+    else if(res.message== 'Minimum 1 item(s) should be ordered'){
+      console.log("minimum 1");
+    } 
+    else if(res.message== 'Stock out'){
+      console.log("Stock out");
+    }
+    else  {
+      console.log("error",res);
+    }
+  }, (error: any) => {
+    console.log("error",error);
+  
+  });
+}
   oncatChange(tbl_id:any) {
     console.log("hiii",tbl_id.value);
      this.cat_id = tbl_id.value;    
@@ -227,6 +234,7 @@ ontableChange(tbl_id:any) {
     this.request.addvarient(this.product_id,weight).subscribe((res: any) => {
       console.log(res);
       this.varprise=res?.price_string;
+      this.stocck=res?.stock;
       // if (res.message == 'Product added to cart successfully') {       
       // }
       // else  {

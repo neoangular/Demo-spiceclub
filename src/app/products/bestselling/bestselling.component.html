@@ -42,7 +42,7 @@
 
         <h6 style="color: red;"> {{varprise}} </h6>
         <p *ngFor="let a of choice"> <span style="color: rgb(224, 21, 89);">{{a.title}} </span> <span *ngFor="let b of a.options" (click)="selectvar(b)">{{b }}</span></p>
-        <p>(availabe={{Peoduct.current_stock}})</p>
+        <p>(availabe={{stocck}})</p>
         
         <select class="sel" (change)="firstDropDownChanged($event)">
             <option *ngFor='let v of _values1'>{{ v }}</option>

@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 import {
   HttpClientModule,
   HTTP_INTERCEPTORS,
@@ -77,7 +78,10 @@ import { ConvertationComponent } from './store/convertation/convertation.compone
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,ArchwizardModule
+    NgbModule,ArchwizardModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY_GOES_HERE'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

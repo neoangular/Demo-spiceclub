@@ -1,5 +1,11 @@
 
 <button (click)="addaddresss(addRecord)">add address</button>
+<agm-map style="height:300px;"
+      [latitude]="lat"
+      [longitude]="lng"
+      [mapTypeId]="mapType"
+    >
+    </agm-map>
 
 <div class="card-body" *ngFor="let Connectdtls of Address">
     <div class="card-header">

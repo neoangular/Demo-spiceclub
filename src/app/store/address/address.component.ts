@@ -16,6 +16,11 @@ import { User } from '../../core/models/user';
   styleUrls: ['./address.component.css']
 })
 export class AddressComponent implements OnInit {
+
+  lat = 11.664325;
+  lng = 78.146011;
+  mapType = 'satellite';
+
   currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
   userid: any;

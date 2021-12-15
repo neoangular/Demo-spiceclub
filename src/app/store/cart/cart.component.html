@@ -1,9 +1,14 @@
 
+
+<button (click)="billdesk2()"> payy</button>
+
+
 <div *ngIf="caart">
 <div class="fgf" *ngFor="let a of Cart" >
     <h4>{{a.name}}</h4>
 
 <br><br>
+
 
 <div class="row" >
     <div class="col-md-8 col-xs-12" *ngFor="let b of a.cart_items">
@@ -127,7 +132,7 @@
   </div>
 </div>
             <ul class="list-inline wizard mb-0">
-              <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>continue to payment info</button>
+              <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep (click)="viewcart3()">continue to payment info</button>
               </li>
             </ul>
           </aw-wizard-step>
@@ -174,10 +179,10 @@
               <li class="next list-inline-item float-end"><button class="btn btn-primary" (click)="placeorder()">Place order</button>
               </li>
             </ul>
-            <!-- <button  (click)="initPay()">Pay</button> -->
+            <button  (click)="initPay()">Pay</button>
 
-            <h3>Click Here! to go CCAvenue</h3>
-            <button mat-button (click)="checkout()">Checkout Payment Gateway</button>
+            <!-- <h3>Click Here! to go CCAvenue</h3>
+            <button mat-button (click)="checkout()">Checkout Payment Gateway</button> -->
         
           <form #form ngNoForm
           id="nonseamless" 

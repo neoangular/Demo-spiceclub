@@ -29,6 +29,10 @@ export class FeaturedComponent implements OnInit {
   accesstoken: any;
   tokentype: any;
   quantityy: any;
+  varient_value: any;
+  stocck: any;
+  varprise: any;
+  choice: any;
 
   constructor(private router: Router,private fb: FormBuilder,private request: RequestService) {
       
@@ -61,7 +65,8 @@ viewfuturedpro(){
   });
 }
 viewproductrow(img: any){
-  this.openproduct=img.links.details
+  this.openproduct=img.links.details;
+  this.product_id=img.id;
 console.log("detail", this.openproduct);
   this.viewrqwproduct();
 } 
@@ -73,6 +78,8 @@ viewrqwproduct(){
     // this.filteredData = data;
     this.Peoduct=response.data[0];
      product_id=this.Peoduct.id;
+     this.choice=this.Peoduct.choice_options;
+     this.stocck=this.Peoduct.current_stock;
     // console.log("topsellis",product_id);
     console.log("response.data",this.Peoduct);
     this.page1=false,
@@ -95,19 +102,41 @@ firstDropDownChanged(data: any)
 addtocart(_id:any){
   let edata={
     id : _id,
-    variant:"",
+    variant:this?.varient_value.replace(/\s/g, ""),
     user_id: this.userid,
-    quantity: this.quantityy
+    quantity: this.quantityy  
   }
   console.log(edata);  
   this.request.addtocart(edata).subscribe((res: any) => {
     console.log(res);
     if (res.message == 'Product added to cart successfully') {       
     }
+    else if(res.message== 'Minimum 1 item(s) should be ordered'){
+      console.log("minimum 1");
+    } 
+    else if(res.message== 'Stock out'){
+      console.log("Stock out");
+    }
     else  {
       console.log("error",res);
-
     }
+  }, (error: any) => {
+    console.log("error",error);
+  
+  });
+}
+selectvar(weight:any){
+  this.varient_value=weight
+  this.request.addvarient(this.product_id,weight).subscribe((res: any) => {
+    console.log(res);
+    this.stocck=res?.stock,
+    this.varprise=res?.price_string;
+    // if (res.message == 'Product added to cart successfully') {       
+    // }
+    // else  {
+    //   console.log("error",res);
+
+    // }
   }, (error: any) => {
     console.log("error",error);
   
