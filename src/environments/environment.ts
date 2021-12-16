@@ -5,6 +5,16 @@
 export const environment = {
   production: false
 };
+//spiceclubneo@gmail.com ----firebase account*************
+export const firebaseConfig = {
+  apiKey: "AIzaSyBjCOJgXu_5SUqLPJa7dxseE-qgbLrWjlY",
+  authDomain: "spiceclub-a8420.firebaseapp.com",
+  projectId: "spiceclub-a8420",
+  storageBucket: "spiceclub-a8420.appspot.com",
+  messagingSenderId: "740565406646",
+  appId: "1:740565406646:web:1c4961f6a753125760e717",
+  measurementId: "G-BHZK0S6JV6"
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

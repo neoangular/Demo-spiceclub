@@ -120,5 +120,17 @@ export class AuthService {
     return this.http.post<any>(this.url, body)
       
   }
+  sociallogin(body: any) { 
+    this.url = `${this.endPoint1}/auth/social-login`;
+    return this.http.post<any>(this.url, body).pipe(     
+      map((user) => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        console.log("currentuser:",user);
+        return user;
+      })
+    );
+      
+  }
 
 }

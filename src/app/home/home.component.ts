@@ -7,12 +7,18 @@ import { RequestService } from 'src/app/service/request.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from '../core/models/user';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, } from "firebase/auth";
+import { FacebookAuthProvider } from "firebase/auth";
+import { signOut } from "firebase/auth";
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  provider: any;
   loginForm!: FormGroup;
   currentUserSubject: BehaviorSubject<User>;
   currentUser: Observable<User>;
@@ -29,6 +35,9 @@ export class HomeComponent implements OnInit {
   loginotpform!: FormGroup;
   loginverifyform!: FormGroup;
   otpuserid: any;
+  s_username: any;
+  s_useremail:  any;
+  s_provider:any;
 
   
 
@@ -48,6 +57,9 @@ export class HomeComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    const provider = new GoogleAuthProvider();
+    this.provider=provider
+
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -110,8 +122,7 @@ export class HomeComponent implements OnInit {
               console.log("Please verify your account"); 
               this.resend();
              this.otpSubmit(content)
-              
-             
+
             }
             else{
               console.log("error",error.error.message);
@@ -130,10 +141,7 @@ export class HomeComponent implements OnInit {
     let edata2={
      email_or_phone:this.f.username.value,
       user_id: this.userid ?? null,
-      register_by:"email",
-      // register_by:""+this.registerForm.controls['register_by'].value,
-      // mobile_no :""+this.registerForm.controls['Mobile'].value,
-     
+      register_by:"email",   
     }
        console.log("resend data",edata2);
     this.authService.resendotp(edata2).subscribe(
@@ -169,8 +177,7 @@ export class HomeComponent implements OnInit {
         console.log("responseee",""+res);
         if (res.message == "Code does not match, you can request for resending the code") { 
             console.log("Code does not match");
-            // this.error1 = 'Incorrect OTP!!Please Try Again!!!!';  
-         
+            // this.error1 = 'Incorrect OTP!!Please Try Again!!!!';       
         } else {
            console.log("Code  matched");
            this.router.navigate(['/main']);
@@ -185,7 +192,7 @@ export class HomeComponent implements OnInit {
     );   
   }
   loginotp(content: any){
-    this.modalService.open(content, {
+    this.modalService.open(content,{
       ariaLabelledBy:'modal-basic-title',
       size: 'lg',
     });
@@ -212,28 +219,19 @@ export class HomeComponent implements OnInit {
              this.otpuserid=res.user_id
             if (res) {
               if (res.message == "OTP code is sent to Mobile ") {
-                console.log("OTP code is sent to Mobile '");               
-               
-             
-              
+                console.log("OTP code is sent to Mobile '");                  
               this.modalService.open(content, {
                 ariaLabelledBy:'modal-basic-title',
                 size: 'lg',
               });
               return;
             }
-
             } else {
-
-              console.log("else err"); 
-         
-            }
-            
+              console.log("else err");   
+            }           
           },
           (error:any) => {   
-            console.log("test","",error.error);
-         
-           
+            console.log("test","",error.error);                
           }
         );
     }
@@ -289,7 +287,101 @@ export class HomeComponent implements OnInit {
         );
     }
   }
- 
+
+  loginWithGoogle(){
+    this.s_provider="google"
+    console.log("googlelogin");
+    const auth = getAuth();
+    signInWithPopup(auth,this.provider)
+   .then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    // let a:any;
+    // a = credential
+    // const token = a.accessToken;
+    const user = result.user;
+    this.s_username= user.displayName;
+    this.s_useremail= user.email;
+    console.log("user",user);
+    if(user){
+      this.validateuser();
+    } 
+    
+  }).catch((error) => {
+    console.log("error",error);
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const email = error.email;
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+  }
+  loginWithFacebook(){
+    this.s_provider="facebook"
+    console.log("facebooklogin");
+    const provider = new FacebookAuthProvider();
+    this.provider=provider
+
+
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {   
+        const user = result.user;
+        this.s_username= user.displayName;
+        this.s_useremail= user.email;
+        console.log("user",user);  
+        if(user){
+          this.validateuser();
+        }    
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+          //  let a:any;
+          //  a = credential
+          //  const token = a.accessToken;    
+      })
+      .catch((error) => {       
+        const errorCode = error.code;
+        const errorMessage = error.message;        
+        const email = error.email;
+        const credential = FacebookAuthProvider.credentialFromError(error);
+    
+        // ...
+      });
+    
+  }
+
+  validateuser(){
+    let edata1={
+      name: this.s_username,
+      email:this.s_useremail,
+      provider:this.s_provider
+      
+    }
+    console.log("S-user data",edata1);
+    this.authService.sociallogin(edata1) .subscribe(
+      (res) => {
+        console.log("responseee",res);
+        if (res.message == "Successfully logged in") { 
+            console.log("Successfully logged in");
+            this.router.navigate(['/main']);
+            // this.error1 = 'Incorrect OTP!!Please Try Again!!!!';       
+        } else {
+           console.log("hiiiiiiiiiiiiiii");
+          //  this.router.navigate(['/main']);
+          // this.error1 = 'Invalid Login';
+        }
+      },
+      (error1) => {
+        // this.error1 = error1;
+        console.log("fail1",error1);
+        
+      }
+    );   
+  }
+  logout(){
+    const auth = getAuth();
+     signOut(auth).then(() => {  
+     }).catch((error) => {
+   });
+  }
 
 }
 

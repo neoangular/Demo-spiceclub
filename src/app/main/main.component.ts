@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from '../core/models/user';
 import { HttpHeaders } from '@angular/common/http';
 import { RequestService } from '../service/request.service';
+import { getAuth, signOut } from "firebase/auth";
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -49,5 +50,13 @@ export class MainComponent implements OnInit {
       // this.router.navigate(['/login']);}
     })
   }
-
+  socialLogout(){
+    const auth = getAuth();
+     signOut(auth).then(() => {
+  console.log("Sign-out successful.");
+     }).catch((error) => {
+  // An error happened.
+   });
+  }
+  
 }
