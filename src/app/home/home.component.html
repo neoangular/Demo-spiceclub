@@ -55,8 +55,8 @@
       <br>
       </div>
   </form>
-<button (click)="loginWithGoogle()"  class="btn btn-warning"> Googlelogin</button>
-<button (click)="loginWithFacebook()"  class="btn btn-primary"> Facebooklogin</button>
+<button (click)="loginWithGoogle(byertype)"  class="btn btn-warning"> Googlelogin</button>
+<button (click)="loginWithFacebook(byertype)"  class="btn btn-primary"> Facebooklogin</button>
 </div>
   <div class="col-md-2">
     <!-- <img src="assets/images/register.jpg" alt="register" class="register-card-img"> -->
@@ -159,6 +159,39 @@
       </div> 
 </ng-template>
 
+<ng-template #byertype let-modal>
+  <div class="modal-header editRowModal">
+      <h4 class="modal-title" id="modal-basic-title">
+          <div class="table-modal-header">
+              <div class="modal-about">
+                  <div class="font-weight-bold p-t-10 font-17">
+                     select byer type</div>
+              </div>
+          </div>
+      </h4>
+  </div>
+   <div class="modal-body">
+        <form class="register-form" [formGroup]="byertypeform" (ngSubmit)="submitbyertype(byertypeform)">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group position-relative">
+                  <label>Buyer type  </label>
+                  <select class="form-control pl-5" formControlName="buyer_type" required>
+                      <option value="" selected disabled>Please select</option>
+                      <option *ngFor="let reg of buyer" [value]="reg.id">
+                          {{reg.name}}
+                      </option>
+                  </select>
+              </div>
+          </div>                      
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">save</button>
+          </div>
+        </form>
+      
+      </div> 
+</ng-template>
 </div>
 </div>
 </div>

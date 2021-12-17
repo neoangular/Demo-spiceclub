@@ -35,7 +35,7 @@ export class ShopbyproductComponent implements OnInit {
   Allcat: any;
   loadingIndicator: boolean | undefined;
   Relatedprod: any;
-  varient_value: any;
+  varient_value="";
   varprise: any; 
   choice: any;
   register!: FormGroup;
@@ -230,7 +230,7 @@ addtocart(_id:any){
   
   }
   selectvar(weight:any){
-    this.varient_value=weight
+    this.varient_value=weight.replace(/\s/g, "")
     this.request.addvarient(this.product_id,weight).subscribe((res: any) => {
       console.log(res);
       this.varprise=res?.price_string;
